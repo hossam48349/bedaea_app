@@ -9,38 +9,24 @@ const errorHandler = require("./middlewares/error.middleware");
 const app = express();
 
 app.use(cors());
-
-app.use(
-  helmet({
-    crossOriginResourcePolicy: false
-  })
-);
-
+app.use(helmet());
 app.use(morgan("dev"));
-
 app.use(express.json());
-
-app.use(
-  express.urlencoded({
-    extended: true
-  })
-);
+app.use(express.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-  res.status(200).json({
+  res.json({
     success: true,
     message: "Bidaea API is running"
   });
 });
 
-
 app.use("/api/v1/auth", authRoutes);
-
 
 app.use((req, res) => {
   res.status(404).json({
     success: false,
-    message: "Route not found"
+    message: `Cannot ${req.method} ${req.originalUrl}`
   });
 });
 
