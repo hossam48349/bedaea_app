@@ -21,6 +21,13 @@ app.get("/", (req, res) => {
   });
 });
 
+app.get("/api/v1/test", (req, res) => {
+  res.json({
+    success: true,
+    message: "API routes are working"
+  });
+});
+
 app.use("/api/v1/auth", authRoutes);
 
 app.use((req, res) => {
